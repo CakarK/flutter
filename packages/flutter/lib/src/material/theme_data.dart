@@ -87,11 +87,12 @@ class Adaptation<T> {
   /// ThemeData class, like [SwitchThemeData], instead of the defaultValue.
   ///
   /// Factory constructors that support adaptations - currently only
-  /// [Switch.adaptive] - look for a [ThemeData.adaptations] member of the expected
-  /// type when computing their effective default component theme. If a matching
-  /// adaptation is not found, the component may choose to use a default adaptation.
-  /// For example, the [Switch.adaptive] component uses an empty [SwitchThemeData]
-  /// if a matching adaptation is not found, for the sake of backwards compatibility.
+  /// [Switch.adaptive] - look for a type-specific adaptation in
+  /// [ThemeData.adaptationMap] when computing their effective default component
+  /// theme. If a matching adaptation is not found, the component may choose to
+  /// use a default adaptation. For example, the [Switch.adaptive] component
+  /// uses an empty [SwitchThemeData] if a matching adaptation is not found, for
+  /// the sake of backwards compatibility.
   ///
   /// {@tool dartpad}
   /// This sample shows how to create and use subclasses of [Adaptation] that
@@ -405,11 +406,11 @@ class ThemeData with Diagnosticable {
 
       // Default some of the color settings to values from the color scheme
       primaryColor ??= primarySurfaceColor;
-      canvasColor ??= colorScheme.background;
-      scaffoldBackgroundColor ??= colorScheme.background;
+      canvasColor ??= colorScheme.surface;
+      scaffoldBackgroundColor ??= colorScheme.surface;
       cardColor ??= colorScheme.surface;
       dividerColor ??= colorScheme.outline;
-      dialogBackgroundColor ??= colorScheme.background;
+      dialogBackgroundColor ??= colorScheme.surface;
       indicatorColor ??= onPrimarySurfaceColor;
       applyElevationOverlayColor ??= brightness == Brightness.dark;
     }
@@ -778,11 +779,11 @@ class ThemeData with Diagnosticable {
       colorScheme: colorScheme,
       brightness: colorScheme.brightness,
       primaryColor: primarySurfaceColor,
-      canvasColor: colorScheme.background,
-      scaffoldBackgroundColor: colorScheme.background,
+      canvasColor: colorScheme.surface,
+      scaffoldBackgroundColor: colorScheme.surface,
       cardColor: colorScheme.surface,
       dividerColor: colorScheme.onSurface.withOpacity(0.12),
-      dialogBackgroundColor: colorScheme.background,
+      dialogBackgroundColor: colorScheme.surface,
       indicatorColor: onPrimarySurfaceColor,
       textTheme: textTheme,
       applyElevationOverlayColor: isDark,
